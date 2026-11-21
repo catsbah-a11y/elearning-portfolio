@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Founder's Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#fff;}
+.artu{font-family:'Roboto',Helvetica,Arial,sans-serif;color:#585858;font-size:1.12em;font-weight:400;line-height:1.5;letter-spacing:.01em;background:#fff;width:100%;max-width:100%;text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%;padding:4px 2px 8px;}
+.artu,.artu *,.artu *::before,.artu *::after{box-sizing:border-box;}
+.artu :focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){.artu *{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+.artu h3{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;color:#333;font-size:1.45em;line-height:1.25;margin:0 0 .35em;}
+.artu h4{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;color:#333;font-size:1.05em;line-height:1.3;margin:0;}
+.artu .eyebrow{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.72em;letter-spacing:.14em;text-transform:uppercase;color:#1580a5;margin:0 0 .4em;}
+.artu .intro{margin:0 0 .8em;}
+.artu .howto{display:flex;align-items:flex-start;gap:12px;background:#e8f6fa;border-left:4px solid #1580a5;border-radius:0 6px 6px 0;padding:12px 16px;margin:0 0 1.2em;color:#333;}
+.artu .howto svg{flex:none;width:26px;height:26px;color:#1580a5;margin-top:1px;}
+.artu .howto p{margin:0;}
+.artu .howto strong{color:#0f6585;font-weight:700;}
+.artu .label{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.74em;letter-spacing:.12em;text-transform:uppercase;color:#333;}
+
+.artu .brief{border:1px solid #d7d9dd;border-radius:8px;overflow:hidden;margin:0 0 16px;}
+.artu .brief-top{background:#464c5d;color:#fff;padding:14px 18px;}
+.artu .brief-top .label{color:#ecedef;}
+.artu .brief-top h4{color:#fff;font-size:1.2em;margin:2px 0 0;}
+.artu .brief-body{padding:14px 18px 16px;display:grid;grid-template-columns:1fr 1fr;gap:12px 22px;}
+.artu .brief-body p{margin:2px 0 0;color:#333;font-size:.92em;}
+.artu .shift{grid-column:1 / -1;background:var(--t);border-left:4px solid var(--c);border-radius:0 6px 6px 0;padding:10px 14px;}
+.artu .shift .chip{display:inline-block;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.68em;letter-spacing:.08em;text-transform:uppercase;color:var(--x);border:1.5px solid var(--c);background:#fff;border-radius:999px;padding:0 8px;margin-right:6px;vertical-align:1px;}
+
+.artu .track{display:flex;align-items:center;gap:0;margin:0 0 14px;}
+.artu .track .dot{flex:none;width:30px;height:30px;border-radius:50%;border:2px solid #d7d9dd;background:#fff;display:flex;align-items:center;justify-content:center;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.8em;color:#8a8f99;transition:all .2s;}
+.artu .track .line{flex:1;height:2px;background:#d7d9dd;}
+.artu .track .dot.cur{border-color:#1580a5;color:#1580a5;box-shadow:0 0 0 4px #e8f6fa;}
+.artu .track .dot.g{background:#97b233;border-color:#97b233;color:#222;}
+.artu .track .dot.r{background:#fbb040;border-color:#fbb040;color:#222;}
+.artu .track .dot.x{background:#da291c;border-color:#da291c;color:#fff;}
+
+.artu .card{border:1px solid #d7d9dd;border-top:4px solid #1580a5;border-radius:8px;padding:16px 18px 18px;}
+.artu .card .step{font-size:.8em;margin:0 0 2px;}
+.artu .card .sit{margin:6px 0 10px;color:#333;}
+.artu .card .q{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;color:#333;font-size:1.02em;margin:0 0 10px;}
+.artu .opts{list-style:none;margin:0;padding:0;display:grid;gap:8px;}
+.artu .opt{font:inherit;font-size:.94em;text-align:left;width:100%;color:#333;background:#fff;border:1.5px solid #d7d9dd;border-radius:8px;padding:11px 14px 11px 44px;cursor:pointer;position:relative;transition:border-color .15s,background .15s;}
+.artu .opt::before{content:attr(data-l);position:absolute;left:12px;top:10px;width:22px;height:22px;border-radius:50%;border:1.5px solid #1580a5;color:#1580a5;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.78em;display:flex;align-items:center;justify-content:center;}
+.artu .opt:hover:not(:disabled){border-color:#1580a5;background:#e8f6fa;}
+.artu .opt:disabled{cursor:default;color:#8a8f99;}
+.artu .opt:disabled::before{border-color:#d7d9dd;color:#b9bdc4;}
+.artu .opt.picked{color:#333;border-color:var(--c);background:var(--t);}
+.artu .opt.picked::before{border-color:var(--c);background:var(--c);color:var(--on,#fff);}
+.artu .opt.best:not(.picked){color:#333;border-style:dashed;border-color:#97b233;}
+.artu .opt.best:not(.picked)::before{border-color:#97b233;color:#6b7e24;}
+.artu .verdict{margin:12px 0 0;border-radius:6px;padding:12px 16px;background:var(--t);border-left:4px solid var(--c);font-size:.92em;color:#333;}
+.artu .verdict .vh{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;color:var(--x);display:block;margin:0 0 2px;}
+.artu .verdict p{margin:.3em 0 0;}
+.artu .verdict .better{margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.08);}
+.artu .nav{display:flex;justify-content:flex-end;margin-top:14px;}
+.artu .btn{font:inherit;font-size:.88em;font-weight:700;border-radius:999px;padding:8px 18px;cursor:pointer;border:1.5px solid #1580a5;background:#1580a5;color:#fff;}
+.artu .btn:hover{background:#0f6585;border-color:#0f6585;}
+.artu .btn.ghost{background:#fff;color:#0f6585;}
+.artu .btn.ghost:hover{background:#e8f6fa;}
+
+.artu .report{display:none;}
+.artu .report.show{display:block;}
+.artu .score{display:flex;align-items:center;gap:16px;margin:4px 0 14px;flex-wrap:wrap;}
+.artu .score .big{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:2.2em;color:#333;line-height:1;}
+.artu .score .big small{font-size:.45em;color:#585858;font-weight:700;}
+.artu .score p{margin:0;flex:1;min-width:220px;color:#333;}
+.artu .rlist{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:8px;}
+.artu .rlist li{border:1px solid #d7d9dd;border-left:4px solid var(--c);border-radius:6px;padding:9px 12px;font-size:.88em;}
+.artu .rlist .rk{display:flex;justify-content:space-between;gap:8px;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;color:#333;}
+.artu .rlist .rk span{color:var(--x);font-weight:900;white-space:nowrap;}
+.artu .rlist .rc{margin:2px 0 0;color:#585858;}
+.artu .rlist .rb{margin:4px 0 0;color:#333;}
+.artu .remember{background:#fff7ec;border-left:4px solid #fbb040;border-radius:0 6px 6px 0;padding:10px 14px;font-size:.9em;color:#333;margin:0 0 12px;}
+.artu .remember p{margin:0 0 .4em;}
+.artu .remember p:last-child{margin:0;}
+.artu .apply{background:#e8f6fa;border-radius:6px;padding:12px 16px;font-size:.92em;color:#585858;margin:0 0 12px;}
+.artu .apply strong{color:#333;}
+.artu .appr-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 14px;}
+.artu .appr{border:1px solid #d7d9dd;border-radius:8px;padding:12px 14px;background:#f7f8f9;}
+.artu .appr .label{color:#0f6585;}
+.artu .appr h4{margin:2px 0 6px;}
+.artu .appr ul{margin:0;padding-left:18px;font-size:.88em;color:#333;}
+.artu .appr li{margin:0 0 3px;}
+.artu .opt.chosen{color:#333;border-color:#1580a5;background:#e8f6fa;}
+.artu .opt.chosen::before{border-color:#1580a5;background:#1580a5;color:#fff;}
+.artu .part2{margin-top:16px;padding-top:14px;border-top:1px solid #d7d9dd;}
+@media (max-width:620px){
+  .artu .brief-body{grid-template-columns:1fr;}
+  .artu .card{padding:14px 14px 16px;}
+  .artu .track .dot{width:26px;height:26px;}
+  .artu .appr-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="artu">
+  <p class="eyebrow">Decision exercise</p>
+  <h3>Founder's Call</h3>
+  <p class="intro" id="intro"></p>
+  <div class="howto"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V4.5a1.5 1.5 0 0 1 3 0V10m0-.5V6.5a1.5 1.5 0 0 1 3 0V14a7 7 0 0 1-7 7h-.6a6 6 0 0 1-4.6-2.2L3.6 15a1.6 1.6 0 0 1 2.4-2.1L9 15.5V11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg><p><strong>Read the brief, then make each call.</strong> More than one option will sound reasonable, so weigh the evidence in each situation. One decision asks you to compare two approaches and name the deciding factor. You'll see the consequence before you move on, and a report on all your calls at the end.</p></div>
+
+  <section class="brief" aria-labelledby="bname">
+    <div class="brief-top"><span class="label">The brief</span><h4 id="bname"></h4></div>
+    <div class="brief-body" id="brief"></div>
+  </section>
+
+  <div class="track" id="track" aria-hidden="true"></div>
+  <section class="card" id="card" aria-live="polite"></section>
+
+  <section class="report" id="report" tabindex="-1" aria-labelledby="repH">
+    <h4 id="repH">Your founder's report</h4>
+    <div class="score" id="score"></div>
+    <ul class="rlist" id="rlist"></ul>
+    <div class="remember" id="remember"></div>
+    <div class="apply" id="apply"></div>
+    <div class="nav"><button type="button" class="btn ghost" id="again">Try again</button></div>
+  </section>
+</div>
+<script>
+(function(){
+  function measure(){ return Math.ceil(document.body.getBoundingClientRect().height) + 2; }
+  var last = 0;
+  function push(){
+    var px = measure();
+    if (px === last) return;
+    last = px;
+    try { if (window.frameElement){ window.frameElement.style.height = px + 'px';
+      window.frameElement.setAttribute('scrolling','no'); } } catch(e){}
+    if (window.parent !== window) window.parent.postMessage({ artuHeight: px }, '*');
+  }
+  window.artuPush = push;
+  if (window.ResizeObserver){ new ResizeObserver(push).observe(document.body); }
+  window.addEventListener('load', push);
+  window.addEventListener('resize', push);
+  document.addEventListener('transitionend', push);
+  document.addEventListener('toggle', push, true);
+  [0,150,400,1200].forEach(function(t){ setTimeout(push, t); });
+})();
+
+var GRADE = {
+  g:{label:'Strong call', c:'#97b233', t:'#f5f7eb', x:'#6b7e24', on:'#222', short:'Strong'},
+  r:{label:'Plausible, but weaker', c:'#fbb040', t:'#fff7ec', x:'#aa6704', on:'#222', short:'Weaker'},
+  x:{label:'Doesn\'t fit the evidence', c:'#da291c', t:'#fbeae8', x:'#b0201a', short:'Poor fit'}
+};
+
+/* ---------------- Business track: economic shift (default) ---------------- */
+var BIZ = {
+  intro:'A macro change only matters to a business once someone decides how to respond. This exercise follows a PESTEL analysis, a scan of the political, economic, social, technological, environmental, and legal forces outside a business. Step into the founder\'s role and make the calls that come next: positioning, target market, product direction, business model, and timing and risk.',
+  name:'Loom & Line, a new everyday knitwear brand',
+  brief:[
+    ['You are','The founder of Loom & Line, a fictional brand planning mid-priced knitwear basics, sold online.'],
+    ['Your plan','Quality sweaters and knit tops for working adults who shop mid-tier retail today. Sweaters around $95, knit tops around $55.'],
+    ['Your resources','Enough cash for about 1,500 units of first-run inventory, and no outside investors yet.'],
+    ['Your timeline','You hoped to launch next fall with a 12-piece line.'],
+    ['shift','Economic','Inflation and a squeeze on discretionary income are pushing shoppers away from mid-tier retail and toward discount platforms.', '#1580a5', '#e8f6fa', '#1580a5']
+  ],
+  steps:[
+    {k:'First response', sit:'Your PESTEL research has just surfaced this shift, and it lands on the mid-tier price point you planned. Several sources and moves are open to you.',
+     q:'What do you do first with this finding?',
+     o:[['Check knit-basics sales by price tier over two years, and survey shoppers like your planned customer.','g','This tests the shift where it matters: in your category and with your customer. That evidence should still be checked for accuracy, currency, and relevance before you act on it.'],
+        ['Use a recent news report that discount shopping app downloads rose 40% last year as your main evidence.','r','The figure is current, but app downloads don\'t show what people actually spend, or whether knitwear buyers are part of the shift. Check evidence for accuracy, currency, and relevance before betting a business model on it.'],
+        ['Lower your planned prices by 15% now as a hedge, and keep researching while you finish the line.','x','It feels prudent, but a price cut is a positioning decision. None of these decisions is justified by the PESTEL observation alone, and cutting price before you know who is trading down, and why, may give away margin you need.']]},
+    {k:'Target market', sit:'Your survey of 400 shoppers is back. 62% say they are buying less at mid-tier stores. About a third of those now buy fewer, better basics and judge them by how long they last. The 38% who haven\'t traded down are mostly higher-income shoppers loyal to established mid-tier brands.',
+     q:'Which customers do you build the brand around?',
+     o:[['The 38% who haven\'t traded down, since they are still shopping at the price point you planned for.','r','Their spending is steadier, but they are loyal to established brands, so a new label has to pull them away from competitors. Ask which consumers are most affected by the change, and whether there is evidence they want an alternative.'],
+        ['Shoppers trading down who now buy fewer, better basics and judge them by how long they last.','g','This group is directly affected by the change, and your survey shows they want an alternative to disposable discount clothing. They judge value by cost per wear, which is where a quality knitwear brand can win.'],
+        ['The full 62% who are trading down, adding a lower-priced second line so you can reach more of them.','x','It\'s the biggest group, but most of it shops on price first. You would be competing head-on with ultra-discount platforms, and two lines would split cash that only covers about 1,500 units.']]},
+    {k:'Product direction', sit:'Your target customers say $60 to $80 feels fair for a sweater that lasts. Reviews of cheaper competitors complain most about pilling and sweaters losing their shape after a few washes.',
+     q:'What happens to the product line?',
+     o:[['Keep all 12 pieces in premium merino at $95, and add a longevity and care story that explains the price.','r','The story is worth telling, but your customers have told you where their ceiling is. A good story rarely moves shoppers $15 past the price they already called fair, especially when every dollar has to be justified.'],
+        ['Keep all 12 pieces, but switch to a lower-cost acrylic blend so sweaters land near $55, well inside budget.','x','The price would fit, but acrylic blends are prone to the pilling and shape loss your customers already complain about. You would give up the durability that sets the brand apart.'],
+        ['Cut to five or six versatile pieces in a durable blend that brings sweaters near $75, with cost per wear shown.','g','This responds to the price evidence without giving up durability, the very thing competitors\' reviews say is missing. Reconsidering function, materials, construction, versatility, and product lifespan makes the value obvious at a tighter price.']]},
+    {type:'tradeoff', k:'Business model',
+     sit:'A regional off-price retailer offers to stock Loom & Line. Both paths are reasonable, but you can fund only one for your first season.',
+     a:[{n:'Wholesale to the off-price chain', f:['An order of 3,000 units for 40 stores','Paid 90 days after delivery','Shown next to discount brands, with the chain\'s own price tags','Far more reach in your first season']},
+        {n:'Sell direct online', f:['About 1,500 units, which your cash covers','Paid at checkout','Product pages that explain fabric, construction, and cost per wear','Slower growth, and you pay to reach each customer']}],
+     best:1,
+     q1:'Which approach fits Loom & Line better right now?',
+     q2:'What is the deciding factor in this situation?',
+     r:{key:'Your cash covers about 1,500 units and you\'d wait 90 days for payment, so the order outruns what you can fund.',
+        alt:'A guaranteed order of 3,000 units removes demand risk while no one knows how long the squeeze will last.',
+        gen:'Selling direct always earns better margins than wholesale, so it is the safer choice for any new brand.'},
+     why:'Your cash covers about half the order, and payment wouldn\'t arrive for 90 days, so the wholesale path means borrowing before you have any proof that customers value the product. Selling direct keeps volume modest and lets you explain the value behind the price, which is the core of your positioning.',
+     when:'Wholesale would be the stronger call if you had the cash or financing for 3,000 units and the retailer would present the brand on its own terms. Guaranteed reach is valuable; it just costs more than Loom & Line can carry right now.',
+     fb:{bestAlt:'You chose the right approach, but the reason you picked argues for the other path.',
+         bestGen:'You chose the right approach, but "always" isn\'t evidence. Margins depend on costs, volume, and marketing spend, so tie the decision to the facts of this situation.',
+         otherAlt:'Your reasoning holds together, and guaranteed demand matters. But it skips the deciding facts: how much cash you have and when you would be paid.',
+         otherKey:'You named the deciding factor, but it argues against the wholesale order, not for it.',
+         otherGen:'Neither the approach nor the reason fits these facts.'}},
+    {k:'Timing and risk', sit:'The squeeze has lasted about 18 months. Industry analysts are split on whether it will ease next year or continue.',
+     q:'How do you launch?',
+     o:[['Launch all six core pieces with a 20% introductory discount to build early volume and reviews.','x','Early volume is tempting, but launching at a discount teaches customers to wait for sales and blurs the value message. It also muddies the test: you won\'t know whether people bought the product or the discount.'],
+        ['Hold the launch for a year, until analysts agree on whether the squeeze will ease or continue.','r','Caution has value, but analysts may never agree, and the opening you found may be filled by then. Ask what you can test now at low cost instead.'],
+        ['Open pre-orders on three core pieces, produce to match, and reorder only if sell-through hits a set target.','g','The change is established but its duration is uncertain. Pre-orders give you real demand data before you spend most of your cash, and a set target turns that data into a decision.']]},
+    {k:'SWOT check', sit:'You are carrying this finding into your SWOT analysis, which sorts factors into strengths, weaknesses, opportunities, and threats.',
+     q:'Where does the inflation squeeze belong?',
+     o:[['A weakness, because your planned price point is directly exposed to it.','x','The exposure is real, but the squeeze itself is outside the business. PESTEL analysis focuses exclusively on external forces. Strengths and weaknesses come from the organization\'s own resources and capabilities and should be evaluated separately. If your cost structure couldn\'t adapt, that limit would be the weakness.'],
+        ['An external threat to mid-tier pricing, and possibly an opportunity.','g','PESTEL factors may create opportunities or threats. The squeeze threatens mid-tier pricing, and it may also open a gap for a brand that makes quality easy to justify.'],
+        ['An opportunity only, since Loom & Line is now built to respond to it.','r','The opportunity is real, but the squeeze still limits what customers will pay and puts pressure on your margins. Recording only the upside hides a risk you need to manage.']]}
+  ],
+  apply:'<strong>In the course:</strong> This exercise prepares learners for their own work. Next, they pick the most consequential finding from their own PESTEL research and work through the same calls for the brand concept they are developing in their thesis project: positioning, target market, product direction, business model, and timing and risk. Where two approaches both seem reasonable, they name the fact that decides between them, and the evidence they would need before committing to each.'
+};
+
+/* ---------------- Product development track: environmental shift (?track=pd) ---------------- */
+var PDV = {
+  intro:'A macro change only matters to a product once someone decides how to respond. This exercise follows a PESTEL analysis, a scan of the political, economic, social, technological, environmental, and legal forces outside a business. Step into the designer\'s role and make the calls that come next: product concept, target customer, design direction, sourcing and production, and timing and risk.',
+  name:'Northfold, a new outerwear brand',
+  brief:[
+    ['You are','The designer and founder of Northfold, a fictional brand developing a line of warm winter outerwear.'],
+    ['Your plan','A collection built around heavy insulated coats, around $240 each, for a city market with traditionally cold winters.'],
+    ['Your resources','Fabric suppliers that specialize in heavy insulation, and cash for one modest production run.'],
+    ['Your timeline','You hoped to launch before next winter.'],
+    ['shift','Environmental','Warmer winters are changing outerwear demand in your market.', '#97b233', '#f5f7eb', '#6b7e24']
+  ],
+  steps:[
+    {k:'First response', sit:'Your PESTEL research has just surfaced this shift, and your whole collection is built around heavy coats. Several sources are available.',
+     q:'What do you do first with this finding?',
+     o:[['Use last winter\'s sales figures, when heavy-coat sales in your city dropped sharply, as your main evidence.','r','The data is current and relevant, but last winter was one season. A single unusually warm year can\'t tell you whether demand has shifted for good.'],
+        ['Compare local sales of heavy coats and lighter layers over several winters, alongside city temperature records.','g','Several winters of sales and weather data show whether the shift is affecting your product category or is just a few warm weeks. That evidence should still be checked for accuracy, currency, and relevance before you act on it.'],
+        ['Rely on a widely shared forecast from a respected trend agency declaring that heavy coats are over.','x','Forecasts can point you toward questions, but they are opinions, not sales data, and widely shared isn\'t the same as accurate. None of these decisions is justified by the PESTEL observation alone, or by a forecast.']]},
+    {k:'Target customer', sit:'Over four winters, local heavy-coat sales fell 22% while lightweight insulated layers grew 30%. Most of that growth came from city commuters who move between cold streets and warm transit and offices. Heavy-coat sales to outdoor workers held steady, mostly through established workwear brands.',
+     q:'Who do you design for?',
+     o:[['Outdoor workers, since their demand for heavy coats has held steady while other segments shifted.','r','Steady demand is appealing, but established workwear brands already serve it, and it isn\'t growing. You would be a new brand in a flat market instead of one serving a growing need.'],
+        ['Shoppers in colder regions, reached through online sales, where heavy coats still sell well.','x','That may be a real market, but you have no evidence about it yet, and it changes your geographic market, shipping and returns costs, and sourcing assumptions. Check the evidence before you relocate the brand.'],
+        ['City commuters who need warmth that adapts through a day of changing temperatures.','g','These customers are most affected by the change, and the growth in lighter layers is evidence that they want an alternative to a single heavy coat.']]},
+    {k:'Design direction', sit:'Commuter interviews keep returning to the same complaint: coats that are too warm on the train and in the office, and too bulky to carry once they come off.',
+     q:'What do you reconsider in the design?',
+     o:[['A layering system: a packable insulated liner and a weatherproof shell, worn alone or together.','g','This rethinks function, materials, versatility, and product lifespan in response to the shift. Each piece works alone on milder days, and together they still deliver warmth when it counts.'],
+        ['Your original heavy coat, redesigned with zip-off sleeves and a removable hood for milder days.','x','It sounds adaptable, but the body of the coat is still heavy and bulky, which is the main complaint in your interviews.'],
+        ['A single mid-weight coat, lighter than your original but warmer than a typical fall jacket.','r','It\'s a sensible compromise, but it gives one level of warmth all day. Your customers\' problem is a day that changes temperature, and one setting can\'t follow it.']]},
+    {type:'tradeoff', k:'Sourcing and production',
+     sit:'Your liner and shell will each retail at about $160. Two factories can make them in lighter technical fabrics. Both are reasonable choices, but you can afford only one first run.',
+     a:[{n:'Local small-batch factory', f:['$62 per piece','300-piece minimum order','6-week lead time, so you can reorder during the season']},
+        {n:'Overseas volume factory', f:['$41 per piece','2,000-piece minimum order','5-month lead time, so you order once before the season starts']}],
+     best:0,
+     q1:'Which approach fits Northfold better right now?',
+     q2:'What is the deciding factor in this situation?',
+     r:{key:'Winters still vary, so a short lead time and small minimum let you reorder based on what sells.',
+        alt:'The lower unit cost leaves more margin to absorb any stock that doesn\'t sell in a mild winter.',
+        gen:'Customers always prefer locally made products, so local production will be easier to sell.'},
+     why:'Demand is shifting and winters are uneven, so being able to respond within a season is worth more than a lower unit cost. At $62 a piece you still keep a healthy margin on a $160 retail price, and a 300-piece minimum limits what you risk on the first run.',
+     when:'The overseas factory would be the stronger call once you have a season or two of sell-through data and can predict demand. Then the lower unit cost pays off without the risk of 2,000 unsold pieces.',
+     fb:{bestAlt:'You chose the right approach, but the reason you picked argues for the other factory.',
+         bestGen:'You chose the right approach, but "always" isn\'t evidence, and nothing in your research shows how much your customers value local production. Tie the decision to the facts of this situation.',
+         otherAlt:'Your reasoning holds together, and margin matters. But the savings disappear if you have to mark down a large share of 2,000 pieces. The deciding facts are the uncertain demand and the long lead time.',
+         otherKey:'You named the deciding factor, but it argues for the local factory, not the overseas one.',
+         otherGen:'Neither the approach nor the reason fits these facts.'}},
+    {k:'Timing and risk', sit:'The trend looks real, but winters still vary. Last winter was mild, and this one is forecast to be colder.',
+     q:'How do you launch?',
+     o:[['Wait two more winters so you have more sales and climate data before launching.','r','More data sounds careful, but climate shifts rarely offer certainty, and someone else may serve the opening first. Ask what you can test now at low cost instead.'],
+        ['Launch the liner and shell in two colors, track weekly sell-through, and reorder past a set target.','g','The change is real but uneven. A focused launch with a clear reorder target tests demand in a real winter without committing your whole budget.'],
+        ['Launch the liner, the shell, and a mid-weight coat in every color, so customers can build a full system.','x','A complete system is appealing, but spreading one production run across many pieces and colors leaves thin stock of each and a blurry test. If the season disappoints, you are exposed across the whole range.']]},
+    {k:'SWOT check', sit:'You are carrying this finding into your SWOT analysis, which sorts factors into strengths, weaknesses, opportunities, and threats.',
+     q:'Where do warmer winters belong?',
+     o:[['An opportunity only, since Northfold is now designed for it.','r','The opportunity is real, but the same shift still shrinks the heavy-coat market and changes what customers will pay for. Recording only the upside hides a risk you need to manage.'],
+        ['An external threat to heavy outerwear, and an opportunity for layering.','g','PESTEL factors may create opportunities or threats. The same shift threatens your original plan and opens room for a different product.'],
+        ['A weakness, because your current suppliers specialize in heavy insulation.','x','Your supplier situation is internal, so it may belong under weaknesses, but warmer winters themselves don\'t. PESTEL analysis focuses exclusively on external forces. Strengths and weaknesses come from your brand\'s own resources and capabilities and should be evaluated separately.']]}
+  ],
+  apply:'<strong>In the course:</strong> This exercise prepares learners for their own work. Next, they pick the most consequential finding from their own PESTEL research and work through the same calls for the product concept they are developing in their thesis project: target customer, design direction, sourcing and production, and timing and risk. Where two approaches both seem reasonable, they name the fact that decides between them, and the evidence they would need before committing to each.'
+};
+
+(function(){
+  var S = /[?&]track=pd\b/i.test(location.search) ? PDV : BIZ;
+  var N = S.steps.length, cur = 0, results = [];
+  var L = ['A','B','C'];
+  var card = document.getElementById('card'), track = document.getElementById('track'), report = document.getElementById('report');
+
+  function shuffle(n){ var a = []; for (var i = 0; i < n; i++) a.push(i); for (var i2 = n - 1; i2 > 0; i2--){ var j = Math.floor(Math.random() * (i2 + 1)); var t = a[i2]; a[i2] = a[j]; a[j] = t; } return a; }
+  function gradeStyle(g){ return '--c:' + g.c + ';--t:' + g.t + ';--x:' + g.x; }
+  function markPicked(b, g){ b.classList.add('picked'); b.style.setProperty('--c', g.c); b.style.setProperty('--t', g.t); if (g.on) b.style.setProperty('--on', g.on); }
+
+  document.getElementById('intro').textContent = S.intro;
+  document.getElementById('bname').textContent = S.name;
+  document.getElementById('brief').innerHTML = S.brief.map(function(b){
+    if (b[0] === 'shift') return '<div class="shift" style="--c:' + b[3] + ';--t:' + b[4] + ';--x:' + b[5] + '"><span class="label">The shift</span><p><span class="chip">' + b[1] + '</span>' + b[2] + '</p></div>';
+    return '<div><span class="label">' + b[0] + '</span><p>' + b[1] + '</p></div>';
+  }).join('');
+
+  function drawTrack(){
+    var h = '';
+    for (var i = 0; i < N; i++){
+      if (i) h += '<span class="line"></span>';
+      var cls = results[i] ? results[i].g : (i === cur && !report.classList.contains('show') ? 'cur' : '');
+      h += '<span class="dot ' + cls + '">' + (i + 1) + '</span>';
+    }
+    track.innerHTML = h;
+  }
+
+  function header(i, s){
+    return '<p class="step">Decision ' + (i + 1) + ' of ' + N + ' · <span class="label" style="font-size:1em">' + s.k + (s.type === 'tradeoff' ? ': compare two approaches' : '') + '</span></p>' +
+      '<p class="sit">' + s.sit + '</p>';
+  }
+
+  function nextButton(){
+    return '<div class="nav"><button type="button" class="btn" id="next">' + (cur < N - 1 ? 'Next decision' : 'See your report') + '</button></div>';
+  }
+
+  function wireNext(){
+    drawTrack();
+    var nx = document.getElementById('next');
+    nx.addEventListener('click', function(){
+      if (cur < N - 1){ show(cur + 1); var q = document.getElementById('q' + cur); if (q) q.focus({preventScroll:true}); try { card.scrollIntoView({block:'nearest'}); } catch(e){} }
+      else finish();
+    });
+    nx.focus({preventScroll:true});
+    window.artuPush();
+  }
+
+  function show(i){
+    cur = i;
+    var s = S.steps[i];
+    if (s.type === 'tradeoff') showTradeoff(i, s); else showChoice(i, s);
+    drawTrack(); window.artuPush();
+  }
+
+  /* ---- Standard decision: three plausible options ---- */
+  function showChoice(i, s){
+    var ord = shuffle(s.o.length);
+    card.innerHTML = header(i, s) + '<p class="q" id="q' + i + '" tabindex="-1">' + s.q + '</p>' +
+      '<ul class="opts" role="list">' + ord.map(function(j, pos){ return '<li><button type="button" class="opt" data-j="' + j + '" data-l="' + L[pos] + '">' + s.o[j][0] + '</button></li>'; }).join('') + '</ul>' +
+      '<div id="vd"></div>';
+    card.querySelectorAll('.opt').forEach(function(b){ b.addEventListener('click', function(){ choose(+b.dataset.j); }); });
+
+    function choose(j){
+      var o = s.o[j], g = GRADE[o[1]];
+      var best = s.o.map(function(x){ return x[1]; }).indexOf('g');
+      card.querySelectorAll('.opt').forEach(function(b){
+        var k = +b.dataset.j; b.disabled = true;
+        if (k === j) markPicked(b, g);
+        if (k === best && k !== j) b.classList.add('best');
+      });
+      results[cur] = { g: o[1], call: o[0], stronger: o[1] !== 'g' ? s.o[best][0] : '' };
+      document.getElementById('vd').innerHTML =
+        '<div class="verdict" style="' + gradeStyle(g) + '"><span class="vh">' + g.label + '</span><p>' + o[2] + '</p>' +
+        (o[1] !== 'g' ? '<p class="better"><strong>A stronger call (' + L[ord.indexOf(best)] + '):</strong> ' + s.o[best][0] + '</p>' : '') + '</div>' +
+        nextButton();
+      wireNext();
+    }
+  }
+
+  /* ---- Tradeoff decision: compare two reasonable approaches, then name the deciding factor ---- */
+  function showTradeoff(i, s){
+    var AB = ['A','B'];
+    var reasonKeys = ['key','alt','gen'];
+    var rOrd = shuffle(3);
+    var approach = null;
+
+    card.innerHTML = header(i, s) +
+      '<div class="appr-grid">' + s.a.map(function(a, k){
+        return '<div class="appr"><span class="label">Approach ' + AB[k] + '</span><h4>' + a.n + '</h4><ul>' + a.f.map(function(f){ return '<li>' + f + '</li>'; }).join('') + '</ul></div>';
+      }).join('') + '</div>' +
+      '<p class="q" id="q' + i + '" tabindex="-1">' + s.q1 + '</p>' +
+      '<ul class="opts" role="list" id="apOpts">' + s.a.map(function(a, k){ return '<li><button type="button" class="opt" data-k="' + k + '" data-l="' + AB[k] + '">Approach ' + AB[k] + ': ' + a.n + '</button></li>'; }).join('') + '</ul>' +
+      '<div id="p2"></div><div id="vd"></div>';
+
+    card.querySelectorAll('#apOpts .opt').forEach(function(b){ b.addEventListener('click', function(){ pickApproach(+b.dataset.k); }); });
+
+    function pickApproach(k){
+      approach = k;
+      card.querySelectorAll('#apOpts .opt').forEach(function(b){ b.disabled = true; if (+b.dataset.k === k) b.classList.add('chosen'); });
+      document.getElementById('p2').innerHTML = '<div class="part2"><p class="q" id="q' + i + 'b" tabindex="-1">' + s.q2 + '</p>' +
+        '<ul class="opts" role="list" id="rsOpts">' + rOrd.map(function(r, pos){ return '<li><button type="button" class="opt" data-r="' + reasonKeys[r] + '" data-l="' + L[pos] + '">' + s.r[reasonKeys[r]] + '</button></li>'; }).join('') + '</ul></div>';
+      card.querySelectorAll('#rsOpts .opt').forEach(function(b){ b.addEventListener('click', function(){ pickReason(b.dataset.r); }); });
+      var q2 = document.getElementById('q' + i + 'b'); if (q2) q2.focus({preventScroll:true});
+      window.artuPush();
+    }
+
+    function pickReason(r){
+      var isBest = approach === s.best, grade, fb;
+      if (isBest){
+        grade = r === 'key' ? 'g' : 'r';
+        fb = r === 'key' ? '' : (r === 'alt' ? s.fb.bestAlt : s.fb.bestGen);
+      } else {
+        grade = r === 'alt' ? 'r' : 'x';
+        fb = r === 'alt' ? s.fb.otherAlt : (r === 'key' ? s.fb.otherKey : s.fb.otherGen);
+      }
+      var g = GRADE[grade];
+      card.querySelectorAll('#rsOpts .opt').forEach(function(b){
+        b.disabled = true;
+        if (b.dataset.r === r) markPicked(b, g);
+        else if (b.dataset.r === 'key' && grade !== 'g') b.classList.add('best');
+      });
+      card.querySelectorAll('#apOpts .opt').forEach(function(b){
+        if (+b.dataset.k === s.best && !isBest) b.classList.add('best');
+      });
+
+      var bestLabel = 'Approach ' + AB[s.best] + ' (' + s.a[s.best].n + ')';
+      var otherLabel = 'Approach ' + AB[1 - s.best] + ' (' + s.a[1 - s.best].n + ')';
+      results[cur] = {
+        g: grade,
+        call: 'Approach ' + AB[approach] + ' (' + s.a[approach].n + '). Deciding factor: ' + s.r[r],
+        stronger: grade !== 'g' ? bestLabel + '. Deciding factor: ' + s.r.key : ''
+      };
+
+      document.getElementById('vd').innerHTML =
+        '<div class="verdict" style="' + gradeStyle(g) + '"><span class="vh">' + g.label + '</span>' +
+        (fb ? '<p>' + fb + '</p>' : '') +
+        '<p' + (fb ? ' class="better"' : '') + '><strong>Why ' + bestLabel + ' fits better:</strong> ' + s.why + '</p>' +
+        '<p class="better"><strong>When ' + otherLabel + ' would win:</strong> ' + s.when + '</p></div>' +
+        nextButton();
+      wireNext();
+    }
+  }
+
+  function finish(){
+    card.style.display = 'none'; report.classList.add('show');
+    var strong = results.filter(function(r){ return r.g === 'g'; }).length;
+    var msg = strong === N ? 'Every call was grounded in evidence. That is the habit this exercise is designed to build.' :
+              strong >= N - 2 ? 'Mostly evidence-led calls. Review the ones marked below to see what a stronger response looks like.' :
+              'Several calls got ahead of the evidence. Review each one below, then try again.';
+    document.getElementById('score').innerHTML = '<span class="big">' + strong + '<small> / ' + N + '</small></span><p><strong>Strong calls.</strong> ' + msg + '</p>';
+    document.getElementById('rlist').innerHTML = S.steps.map(function(s, i){
+      var res = results[i], g = GRADE[res.g];
+      return '<li style="--c:' + g.c + ';--x:' + g.x + '"><div class="rk">' + (i + 1) + '. ' + s.k + '<span>' + g.short + '</span></div><p class="rc">Your call: ' + res.call + '</p>' +
+        (res.stronger ? '<p class="rb"><strong>Stronger:</strong> ' + res.stronger + '</p>' : '') + '</li>';
+    }).join('');
+    document.getElementById('remember').innerHTML = '<p><strong>Remember:</strong> None of these decisions is justified by the PESTEL observation alone.</p><p>The goal is not to make every macro change part of ' + (S === PDV ? 'your product concept' : 'the brand concept') + '. Prioritize the changes that are credible, consequential, and relevant to ' + (S === PDV ? 'your proposed brand' : 'the proposed business') + '.</p>';
+    document.getElementById('apply').innerHTML = S.apply;
+    drawTrack(); window.artuPush();
+    setTimeout(function(){ report.focus({preventScroll:false}); }, 60);
+  }
+
+  document.getElementById('again').addEventListener('click', function(){
+    results = []; report.classList.remove('show'); card.style.display = ''; show(0);
+    try { document.getElementById('bname').scrollIntoView({block:'start'}); } catch(e){}
+  });
+  show(0);
+})();
+</script>
+</body>
+</html>
