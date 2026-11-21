@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Persona and Lifestyle Board Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400;1,700;1,900&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#fff;}
+.artu{font-family:'Roboto',Helvetica,Arial,sans-serif;color:#585858;font-size:1.12em;font-weight:400;line-height:1.5;letter-spacing:.01em;background:#fff;width:100%;max-width:100%;text-rendering:optimizeLegibility;-webkit-text-size-adjust:100%;}
+.artu,.artu *,.artu *::before,.artu *::after{box-sizing:border-box;}
+.artu :focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){.artu *{animation-duration:.01ms !important;transition-duration:.01ms !important;}}
+.artu{--head:#333;--body:#585858;--rule:#d7d9dd;--blue:#1580a5;--blue-d:#0f6585;--blue-t:#e8f6fa;}
+.artu .wrap{padding:4px;}
+.artu .kiosk{border:1px solid var(--rule);border-radius:8px;background:#fff;padding:20px 22px 18px;box-shadow:0 1px 3px rgba(51,51,51,.06);}
+.artu h3.kiosk-title{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:1.35rem;line-height:1.25;color:var(--head);margin:0 0 4px;}
+.artu .prompt{margin:0 0 16px;font-size:.85rem;line-height:1.45;}
+
+/* ---------- preview one-pager ---------- */
+.artu .preview{background:#f2f5f9;border-radius:12px;padding:12px;}
+.artu .sheet{background:#fff;border:1px solid var(--rule);border-radius:10px;padding:18px 18px 16px;}
+.artu .shead{border-bottom:1px solid var(--rule);padding-bottom:12px;margin-bottom:12px;}
+.artu .skick{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--body);margin:0 0 2px;}
+.artu .sname{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:1.6rem;line-height:1.15;color:var(--head);margin:0;}
+.artu .sname.empty{color:#9a9ea7;}
+.artu .sline{font-size:.85rem;margin:3px 0 0;}
+.artu .sconcept{margin:10px 0 0;padding:8px 0 2px 14px;border-left:4px solid #97b233;font-family:'Lato',Helvetica,Arial,sans-serif;font-style:italic;font-size:1.02rem;line-height:1.45;color:var(--head);}
+.artu .sconcept.empty{color:#9a9ea7;font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:.85rem;}
+.artu .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0;padding:0;list-style:none;}
+.artu .chips li{font-size:.74rem;font-weight:500;letter-spacing:.04em;color:#6b7e24;background:#f5f7eb;border-radius:999px;padding:2px 10px;}
+.artu .szones{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.artu .sz{border-top:4px solid var(--zc);background:var(--zt);border-radius:8px;padding:8px 10px 10px;min-width:0;}
+.artu .sz.is-current{box-shadow:0 0 0 2px var(--zc) inset;}
+.artu .sz h4{display:flex;justify-content:space-between;gap:6px;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.9rem;color:var(--zx);margin:0 0 4px;}
+.artu .sz .zc{font-size:.72rem;font-weight:700;color:var(--body);}
+.artu .sz dl{margin:0;font-size:.84rem;line-height:1.4;}
+.artu .sz dt{font-weight:700;color:var(--head);margin-top:4px;}
+.artu .sz dd{margin:0;color:var(--head);white-space:pre-line;overflow-wrap:anywhere;}
+.artu .zempty{margin:0;font-size:.82rem;font-style:italic;color:#9a9ea7;}
+.artu .pairs{list-style:none;margin:2px 0 0;padding:0;font-size:.84rem;}
+.artu .pairs li{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;padding:4px 0;border-bottom:1px solid rgba(167,51,161,.15);color:var(--head);}
+.artu .pairs li:last-child{border-bottom:0;}
+.artu .pairs .to{width:14px;height:2px;background:#a733a1;position:relative;}
+.artu .pairs .to::after{content:"";position:absolute;right:-1px;top:-3px;border:4px solid transparent;border-left:5px solid #a733a1;border-right:0;}
+.artu .pairs .ph{color:#9a9ea7;font-style:italic;}
+.artu .sz.board{grid-column:1 / -1;}
+.artu .bgrid{display:grid;grid-template-columns:repeat(var(--cols,3),minmax(0,1fr));gap:6px;margin-top:4px;}
+.artu .bgrid img{width:100%;aspect-ratio:var(--ar,1);object-fit:cover;border-radius:4px;display:block;background:#fff;}
+.artu .progress{display:flex;align-items:center;gap:10px;margin:12px 2px 0;font-size:.84rem;}
+.artu .bar{flex:1;height:6px;background:#dfe2e7;border-radius:999px;overflow:hidden;}
+.artu .bar span{display:block;height:100%;width:0;background:var(--blue);transition:width .3s;}
+
+/* ---------- steps + form ---------- */
+.artu .steps{display:flex;flex-wrap:wrap;gap:6px;margin:18px 0 10px;}
+.artu .step{all:unset;box-sizing:border-box;cursor:pointer;padding:6px 14px;border-radius:999px;border:2px solid var(--zc);color:var(--zx);font-weight:700;font-size:.86rem;background:#fff;}
+.artu .step[aria-pressed="true"]{background:var(--zc);color:var(--zon,#fff);}
+.artu .step:focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+.artu .form{border:1px solid var(--rule);border-top:5px solid var(--zc);border-radius:10px;padding:14px 16px 16px;}
+.artu .fq{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:1.1rem;color:var(--head);margin:0 0 4px;}
+.artu .fq span{font-weight:400;font-style:italic;font-size:.9rem;color:var(--zx);margin-left:6px;}
+.artu .fintro{font-size:.84rem;margin:0 0 12px;}
+.artu .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px;}
+.artu .fgrid .wide{grid-column:1 / -1;}
+.artu .field{margin:0 0 12px;min-width:0;}
+.artu .field > label,.artu legend{display:block;font-weight:700;font-size:.88rem;color:var(--head);margin:0 0 4px;padding:0;}
+.artu .hint{display:block;font-size:.78rem;margin:-2px 0 5px;}
+.artu fieldset{border:0;margin:0 0 12px;padding:0;min-width:0;}
+.artu input[type=text],.artu textarea{width:100%;font:inherit;font-size:.92rem;color:var(--head);padding:7px 10px;border:1.5px solid var(--rule);border-radius:6px;background:#fff;}
+.artu textarea{min-height:76px;resize:vertical;line-height:1.45;}
+.artu textarea.tall{min-height:150px;}
+.artu input[type=text]:focus,.artu textarea:focus{outline:3px solid #1580a5;outline-offset:1px;border-color:#1580a5;}
+.artu ::placeholder{color:#8a8f99;}
+.artu .opts{display:flex;flex-wrap:wrap;gap:6px;}
+.artu .opt{position:relative;}
+.artu .opt input{position:absolute;opacity:0;width:1px;height:1px;}
+.artu .opt span{display:inline-block;cursor:pointer;padding:4px 12px;border-radius:999px;border:1.5px solid var(--rule);font-size:.86rem;color:var(--head);background:#fff;}
+.artu .opt input:checked + span{background:var(--zc);border-color:var(--zc);color:var(--zon,#fff);font-weight:700;}
+.artu .opt input:focus-visible + span{outline:3px solid #1580a5;outline-offset:2px;}
+.artu .vbrow{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;align-items:center;margin:0 0 8px;}
+.artu .vbhead{display:grid;grid-template-columns:1fr 28px 1fr;gap:8px;margin:0 0 4px;font-weight:700;font-size:.88rem;color:var(--head);}
+.artu .vbhead small{display:block;font-weight:400;font-size:.78rem;color:var(--body);}
+.artu .vbrow .to{height:2px;background:#a733a1;position:relative;margin:0 4px;}
+.artu .vbrow .to::after{content:"";position:absolute;right:-2px;top:-4px;border:5px solid transparent;border-left:6px solid #a733a1;border-right:0;}
+.artu .note{font-size:.82rem;background:#fff7ec;border-left:4px solid #fbb040;border-radius:0 6px 6px 0;padding:8px 12px;margin:0 0 12px;color:#585858;}
+.artu .note strong{color:#333;}
+.artu .uploader{border:2px dashed var(--rule);border-radius:8px;padding:12px;text-align:center;font-size:.84rem;transition:border-color .15s,background .15s;}
+.artu .uploader.over{border-color:#1580a5;background:var(--blue-t);}
+.artu .thumbs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;margin-top:10px;}
+.artu .thumb{position:relative;}
+.artu .thumb img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:6px;display:block;border:1px solid var(--rule);}
+.artu .thumb button{all:unset;cursor:pointer;position:absolute;top:4px;right:4px;width:22px;height:22px;border-radius:50%;background:rgba(51,51,51,.8);color:#fff;font-size:14px;line-height:22px;text-align:center;}
+.artu .thumb button:focus-visible{outline:3px solid #1580a5;outline-offset:1px;}
+.artu .nav{display:flex;justify-content:space-between;gap:8px;margin-top:4px;}
+.artu .btn{all:unset;box-sizing:border-box;cursor:pointer;padding:7px 16px;border:1.5px solid var(--blue);border-radius:999px;font-weight:700;font-size:.86rem;color:var(--blue-d);background:#fff;}
+.artu .btn:hover:not(:disabled){background:var(--blue-t);}
+.artu .btn:disabled{opacity:.3;cursor:default;}
+.artu .btn:focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+.artu .btn.primary{background:var(--blue);border-color:var(--blue);color:#fff;}
+.artu .btn.primary:hover:not(:disabled){background:var(--blue-d);border-color:var(--blue-d);}
+.artu .btn.warn{border-color:#da291c;color:#b3221a;}
+.artu .actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:16px;padding-top:14px;border-top:1px solid var(--rule);}
+.artu .status{font-size:.84rem;flex-basis:100%;min-height:1.3em;}
+@media (max-width:620px){
+  .artu .kiosk{padding:14px 12px 12px;}
+  .artu .fgrid,.artu .szones{grid-template-columns:1fr;}
+  .artu .thumbs{grid-template-columns:repeat(3,minmax(0,1fr));}
+  .artu .vbrow,.artu .vbhead{grid-template-columns:1fr;gap:4px;}
+  .artu .vbrow{padding-bottom:8px;border-bottom:1px solid var(--rule);}
+  .artu .vbrow .to,.artu .vbhead .sp{display:none;}
+  .artu .vbhead{display:none;}
+}
+@media print{
+  .artu .kiosk{border:0;box-shadow:none;padding:0;}
+  .artu .prompt,.artu .steps,.artu .form,.artu .actions,.artu .progress{display:none !important;}
+  .artu .preview{background:#fff;padding:0;}
+  .artu .sheet{border:0;padding:0;}
+  .artu .sz{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  .artu .sz.is-current{box-shadow:none;}
+}
+.artu .cov{display:grid;grid-template-columns:repeat(var(--n,5),minmax(0,1fr));gap:6px;margin:12px 0 0;}
+.artu .cov div{border-radius:6px;padding:6px 8px;background:var(--st-t);border-top:4px solid var(--st-c);min-width:0;}
+.artu .cov b{display:block;font-family:'Lato',Helvetica,Arial,sans-serif;font-size:.74rem;line-height:1.2;color:#333;}
+.artu .cov span{display:block;font-size:.7rem;font-weight:700;color:var(--st-x);margin-top:2px;}
+.artu .goals{margin:10px 0 0;padding-left:1.3em;font-size:.88rem;color:#333;}
+.artu .goals li{margin:2px 0;}
+.artu .goals.empty{list-style:none;padding:0;color:#9a9ea7;font-style:italic;font-size:.84rem;}
+.artu .pill{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.03em;border-radius:999px;padding:1px 9px;background:var(--st-t);color:var(--st-x);border:1px solid var(--st-c);white-space:nowrap;}
+.artu .area{border:1px solid #d7d9dd;border-left:4px solid var(--st-c);border-radius:8px;padding:8px 12px 10px;background:#fff;min-width:0;}
+.artu .area.is-current{box-shadow:0 0 0 2px #1580a5;}
+.artu .area h4{display:flex;justify-content:space-between;align-items:center;gap:8px;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.9rem;color:#333;margin:0 0 4px;}
+.artu .area dl{margin:0;font-size:.82rem;line-height:1.4;}
+.artu .area dt{font-weight:700;color:#333;margin-top:4px;}
+.artu .area dd{margin:0;color:#333;white-space:pre-line;overflow-wrap:anywhere;}
+.artu .mchips{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0 0;padding:0;list-style:none;}
+.artu .mchips li{font-size:.7rem;background:#e8f6fa;color:#1580a5;border-radius:999px;padding:1px 8px;font-weight:500;}
+.artu .areas{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.artu .rat{grid-column:1 / -1;border-top:4px solid #a733a1;background:#f6ebf6;border-radius:8px;padding:8px 12px 10px;}
+.artu .rat h4{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.9rem;color:#a733a1;margin:0 0 4px;display:flex;justify-content:space-between;}
+.artu .rat.is-current{box-shadow:0 0 0 2px #a733a1 inset;}
+.artu .rat p{margin:0;font-size:.84rem;color:#333;white-space:pre-line;}
+.artu .rat .zempty{color:#9a9ea7;}
+.artu .ask{background:#f6f7f8;border-radius:6px;padding:10px 14px;margin:0 0 12px;font-size:.84rem;}
+.artu .ask ul{margin:4px 0 0;padding-left:1.2em;}
+.artu .ask li{margin:3px 0;}
+.artu .link{background:#e8f6fa;border-radius:8px;padding:10px 14px;margin:0 0 14px;font-size:.84rem;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;}
+.artu .link .lt{flex:1 1 260px;}
+.artu .link strong{color:#333;}
+.artu .chk{display:flex;align-items:center;gap:6px;font-size:.84rem;color:#333;cursor:pointer;}
+.artu .chk input{width:16px;height:16px;accent-color:#1580a5;}
+@media (max-width:620px){.artu .areas{grid-template-columns:1fr;}.artu .cov{grid-template-columns:repeat(3,minmax(0,1fr));}}
+.artu .howto{background:#e8f6fa;border-left:4px solid #1580a5;border-radius:0 6px 6px 0;padding:12px 16px;margin:0 0 18px;color:#333;}
+.artu .howto .ht{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:#0f6585;margin:0 0 6px;}
+.artu .howto ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;}
+.artu .howto li{display:flex;gap:10px;font-size:.86rem;line-height:1.4;}
+.artu .howto li b{flex:none;width:24px;height:24px;border-radius:50%;background:#1580a5;color:#fff;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.8rem;display:flex;align-items:center;justify-content:center;}
+.artu .howto li strong{display:block;color:#0f6585;}
+.artu .parts{display:grid;gap:10px;margin:0 0 12px;}
+.artu .part .plabel{display:flex;justify-content:space-between;gap:8px;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:#333;margin:0 0 6px;}
+.artu .part .plabel span{letter-spacing:.02em;text-transform:none;font-weight:400;color:#585858;font-family:'Roboto',Helvetica,Arial,sans-serif;font-size:.8rem;}
+.artu .part .steps{margin:0;}
+.artu .step .n{display:inline-block;min-width:1.1em;margin-right:5px;opacity:.75;}
+.artu .step.done:not([aria-pressed="true"])::after{content:"";display:inline-block;width:5px;height:9px;border:solid var(--zx);border-width:0 2px 2px 0;transform:rotate(45deg);margin:0 0 2px 7px;}
+.artu .form .stepof{font-size:.78rem;margin:0 0 2px;}
+.artu .nav .btn.next{background:var(--blue);border-color:var(--blue);color:#fff;}
+.artu .nav .btn.next:hover:not(:disabled){background:var(--blue-d);border-color:var(--blue-d);}
+.artu .pvhead{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin:22px 0 8px;}
+.artu .pvhead h4{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:1.05rem;color:#333;margin:0;}
+.artu .pvhead .pvsw{all:unset;cursor:pointer;font-size:.82rem;font-weight:700;color:#0f6585;text-decoration:underline;text-underline-offset:3px;}
+.artu .pvhead .pvsw:focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+.artu .actions .grp{display:flex;flex-wrap:wrap;gap:8px;align-items:center;}
+.artu .actions .grp.later{margin-left:auto;}
+.artu .actions .glabel{font-size:.8rem;font-weight:700;color:#333;}
+.artu .actions .savenote{flex-basis:100%;font-size:.8rem;margin:0;}
+.artu .linkbtn{all:unset;cursor:pointer;font-size:.8rem;color:#585858;text-decoration:underline;text-underline-offset:3px;}
+.artu .linkbtn.warn{color:#b3221a;font-weight:700;}
+.artu .linkbtn:focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+@media (max-width:760px){.artu .howto ol{grid-template-columns:1fr;}.artu .actions .grp.later{margin-left:0;}}
+@media print{.artu .howto,.artu .parts,.artu .pvhead .pvsw,.artu .savenote{display:none !important;}}
+.artu .sub{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--zx);margin:6px 0 0;padding-top:10px;border-top:1px solid #ecedef;}
+.artu .fgrid textarea{min-height:64px;}
+.artu .fgrid textarea.tall{min-height:130px;}
+.artu .steps.one{margin:0 0 12px;}
+.artu .flab{display:block;font-weight:700;color:#333;font-size:.92rem;margin-bottom:2px;}
+.artu .tg{display:inline-block;font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:700;font-size:.62rem;letter-spacing:.07em;text-transform:uppercase;border:1px solid;border-radius:999px;padding:0 7px;margin-left:7px;vertical-align:2px;line-height:1.6;}
+.artu .tg.e{background:#f5f7eb;color:#5c6c1f;border-color:#97b233;}
+.artu .tg.i{background:#fff7ec;color:#8f5703;border-color:#fbb040;}
+.artu .legend{font-size:.82rem;color:#585858;margin:0 0 12px;line-height:1.9;}
+.artu .legend .tg{margin-left:0;}
+.artu .skip{display:flex;gap:10px;align-items:flex-start;background:#fff7ec;border:1px solid #fbb040;border-radius:8px;padding:10px 12px;margin:0 0 12px;font-size:.92rem;color:#333;cursor:pointer;}
+.artu .skip input{width:18px;height:18px;margin:2px 0 0;accent-color:#aa6704;flex:none;}
+.artu .photoctl{display:flex;gap:12px;align-items:center;margin-top:4px;}
+.artu .ph{width:76px;height:76px;border-radius:50%;overflow:hidden;flex:none;border:2px solid var(--c,var(--zc,#d7d9dd));background:#f2f5f9;}
+.artu .ph img,.artu .ph svg{width:100%;height:100%;object-fit:cover;display:block;}
+.artu .mini{font:inherit;font-size:.8rem;font-weight:700;color:#1580a5;background:#fff;border:1px solid #1aa2d1;border-radius:6px;padding:4px 10px;cursor:pointer;}
+.artu .mini:hover{background:#e8f6fa;}
+.artu .mini:focus-visible{outline:3px solid #1580a5;outline-offset:2px;}
+.artu #cards{display:grid;gap:14px;margin-top:6px;}
+.artu .pcard{border:1px solid #d7d9dd;border-top:6px solid var(--c);background:var(--t);border-radius:8px;padding:14px 16px;}
+.artu .pcard.cur{box-shadow:0 0 0 2px var(--c);}
+.artu .pcard.skipped{background:#f6f7f8;border-top-style:dashed;}
+.artu .tier{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--x);margin:0 0 10px;}
+.artu .tier span{text-transform:none;letter-spacing:0;font-weight:700;font-size:.82rem;color:#333;}
+.artu .phead{display:flex;gap:14px;align-items:center;margin-bottom:8px;}
+.artu .pname{font-family:'Lato',Helvetica,Arial,sans-serif;font-weight:900;font-size:1.3rem;color:#333;margin:0;line-height:1.2;}
+.artu .pname.empty{color:#9a9ea7;}
+.artu .pline{margin:2px 0 0;font-size:.84rem;color:#585858;}
+.artu .pcard dl{margin:8px 0 0;font-size:.82rem;line-height:1.45;}
+.artu .pcard dt{font-weight:700;color:#333;margin-top:6px;}
+.artu .pcard dt .tg{font-size:.56rem;}
+.artu .pcard dd{margin:1px 0 0;color:#333;}
+.artu .kw{list-style:none;margin:10px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:5px;}
+.artu .kw li{font-size:.74rem;background:#fff;border:1px solid var(--c);color:#333;border-radius:999px;padding:1px 9px;}
+.artu .bgrid{display:grid;grid-template-columns:repeat(var(--cols),1fr);gap:6px;margin-top:10px;}
+.artu .bgrid img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:4px;display:block;}
+@media (max-width:620px){.artu .bgrid{grid-template-columns:repeat(2,1fr);}.artu .pname{font-size:1.1rem;}}
+.artu .fgrid[hidden]{display:none;}
+.artu .bgrid img{aspect-ratio:3/2;}
+.artu .board-editor{flex:1 1 220px;min-width:0;border:1px solid #d7d9dd;padding:10px;border-radius:8px}.artu .board-editor img{max-width:100%;height:110px;object-fit:contain}.artu .board-editor label{display:block;font-size:.85rem;margin-top:8px}.artu .board-editor textarea{width:100%;font:inherit}.artu .pcard dd{white-space:pre-wrap;overflow-wrap:anywhere}.artu .sline{overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<div class="artu">
+<div class="wrap">
+<div class="kiosk">
+<h3 class="kiosk-title">Persona and Lifestyle Board Builder</h3>
+<div class="howto">
+  <p class="ht">How it works</p>
+  <ol>
+    <li><b>1</b><span><strong>Start with your overview.</strong>Name your brand and describe how your primary, secondary, and tertiary target customers are identified and distinguished.</span></li>
+    <li><b>2</b><span><strong>Build each persona.</strong>Tags show which details must come from your evidence and which are illustrative. Add a picture and lifestyle board images for each target.</span></li>
+    <li><b>3</b><span><strong>Save your finished report.</strong>Your persona cards build below as you work. Open the complete report, then use Print / Save as PDF. You can also download an HTML copy.</span></li>
+  </ol>
+</div>
+<div class="actions" style="margin-bottom:16px"><button type="button" class="btn" id="example">Load fictional example</button><p id="exampleNote" class="savenote">Explore a fictional example or start with your own research below. “Evidenced” labels describe the expected basis for a field; this tool does not verify claims.</p></div>
+<div class="steps one" id="steps" role="group" aria-label="Builder steps"></div>
+<div class="form" id="form"></div>
+
+<div class="pvhead"><h4>Summary preview: Your Target Customer Personas</h4></div>
+<p class="savenote">This preview shortens responses. The complete report includes all fields, source notes, and image descriptions without shortening them.</p><div class="preview">
+  <div class="sheet">
+    <div class="shead">
+      <p class="skick">Target customer personas</p>
+      <p class="sname" id="sname"></p>
+      <p class="sline" id="sline"></p>
+    </div>
+    <div id="cards"></div>
+  </div>
+  <div class="progress"><div class="bar"><span id="bar"></span></div><span id="ptext"></span></div>
+</div>
+
+<div class="actions">
+  <div class="grp"><button type="button" class="btn primary" id="pdf">Open full report / Save PDF</button><button type="button" class="btn" id="htmlExport">Download HTML report</button></div>
+  <div class="grp later">
+    <span class="glabel">Keep working later:</span>
+    <button type="button" class="btn" id="save">Save Progress</button>
+    <button type="button" class="btn" id="openbtn">Open Saved File</button><input type="file" id="openin" accept=".json,application/json" hidden>
+  </div>
+  <p class="savenote">Entries clear when you leave the page. Save Progress downloads a file you can open here later to pick up where you left off. <button type="button" class="linkbtn" id="reset">Start over</button></p>
+  <span class="status" id="status" role="status" aria-live="polite"></span>
+</div>
+</div>
+</div>
+</div>
+<script>
+
+(function(){
+  function measure(){ return Math.ceil(document.body.getBoundingClientRect().height) + 2; }
+  var last = 0;
+  function push(){
+    var px = measure();
+    if (px === last) return;
+    last = px;
+    try { if (window.frameElement){ window.frameElement.style.height = px + 'px';
+      window.frameElement.setAttribute('scrolling','no'); } } catch(e){}
+    if (window.parent !== window) window.parent.postMessage({ artuHeight: px }, '*');
+  }
+  window.artuPush = push;
+  if (window.ResizeObserver){ new ResizeObserver(push).observe(document.body); }
+  window.addEventListener('load', push);
+  window.addEventListener('resize', push);
+  document.addEventListener('transitionend', push);
+  document.addEventListener('toggle', push, true);
+  [0,150,400,1200].forEach(function(t){ setTimeout(push, t); });
+})();
+
+/* ================= configuration ================= */
+var MAXIMG = 6;
+var TIERS = [
+  {id:'p0', name:'Primary', c:'#1580a5', t:'#e8f6fa', x:'#1580a5',
+   def:'The group the brand will serve and prioritize in its initial product, pricing, distribution, and communication decisions'},
+  {id:'p1', name:'Secondary', c:'#a733a1', t:'#f6ebf6', x:'#a733a1',
+   def:'A group research shows has meaningful potential, which the brand can serve without losing focus'},
+  {id:'p2', name:'Tertiary', c:'#fbb040', t:'#fff7ec', x:'#aa6704', on:'#222',
+   def:'A smaller, emerging, or future opportunity, included only when there is evidence for it'}
+];
+var E = 'e', I = 'i';
+function pfields(p){ return [
+  {type:'sub', l:'The target group'},
+  {k:p + 'group', l:'Target customer group', hint:'The group your research identified. The persona represents this group; it is not the group itself.', type:'text', wide:1},
+  {k:p + 'why', l:'Why this level of priority?', hint:'Ground it in needs, buying behavior, ability to purchase, and fit with your business, not in how well the description matches your brand concept.', type:'area'},
+  {type:'sub', l:'The persona'},
+  {k:p + 'name', l:'Persona name', tag:I, type:'text', ph:'For example, Maya'},
+  {k:p + 'photo', l:'Picture', tag:I, type:'photo'},
+  {k:p + 'photoDesc', l:'Picture description', hint:'Describe the image and its purpose in representing this persona.', type:'area', skip:1},
+  {k:p + 'age', l:'Age', tag:E, type:'text', ph:'For example, 34'},
+  {k:p + 'job', l:'Occupation', tag:E, type:'text'},
+  {k:p + 'income', l:'Income', tag:E, type:'text'},
+  {k:p + 'edu', l:'Education and family structure', tag:E, type:'text'},
+  {k:p + 'geo', l:'Geographic', hint:'Where they live, work, and spend leisure time', tag:E, type:'text', wide:1},
+  {k:p + 'beh', l:'Behavioral', hint:'How often and why they buy, where they shop, loyalty, and occasions', tag:E, type:'area'},
+  {k:p + 'psy', l:'Psychographics', hint:'Values, attitudes, lifestyle, preferences, interests, needs, and wants, in general and toward the products you offer', tag:E, type:'area'},
+  {k:p + 'goals', l:'Specific motivations and goals', hint:'Consistent with the evidence but not sourced from it', tag:I, type:'area'},
+  {k:p + 'brand', l:'Brand relationship and associations', hint:'The brands, products, and media they use, watch, read, and buy', tag:E, type:'area'},
+  {k:p + 'sources', l:'Research notes and sources', hint:'Record sources, dates, findings, and uncertainties. Distinguish research from assumptions.', type:'area', skip:1},
+  {type:'sub', l:'Lifestyle board'},
+  {k:p + 'life', l:'Lifestyle keywords', hint:'What they like, what they do, where they travel, and so forth. Separate with commas.', type:'text', wide:1},
+  {k:p + 'board', type:'board'}
+]; }
+var LAYERS = [{id:'ov', name:'Overview', title:'Overview of Your Target Customers', c:'#464c5d', t:'#ecedef', x:'#464c5d',
+  intro:'Keep the distinction clear: the target customer is the group your research identified, and the persona is a representation of that group, not the group itself.',
+  fields:[
+    {k:'name', l:'Brand or business name', type:'text', ph:'For example, Stride Lab'},
+    {k:'last', l:'Your last name', hint:'Used only to name your PDF.', type:'text', ph:'For example, Rivera', skip:1},
+    {k:'overview', l:'Overview of your target customers', hint:'Who your target customers are, and how your primary, secondary, and tertiary customers are identified and distinguished.', type:'area', tall:1}
+  ]}].concat(TIERS.map(function(t, i){ return {id:t.id, tier:i, name:t.name, title:t.name + ' Target Customer', c:t.c, t:t.t, x:t.x, on:t.on,
+  intro:t.def + '.', fields:pfields(t.id + '_')}; }));
+var N = LAYERS.length;
+
+/* ================= state ================= */
+var V = {}, IMG = {}, cur = 0, stepBtns = [];
+function val(k){ var v = V[k]; return Array.isArray(v) ? v.join(', ') : (v || ''); }
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function trunc(s, n){ return s.length > n ? s.slice(0, n).replace(/\s+\S*$/, '') + '…' : s; }
+function flash(t){ document.getElementById('status').textContent = t; window.artuPush(); }
+function skipT(){ return !!V.noTertiary; }
+function boards(p){ return IMG[p + '_board'] || []; }
+function has(k){ if (/_photo$/.test(k)) return !!IMG[k]; if (/_board$/.test(k)) return (IMG[k] || []).length > 0; return !!val(k); }
+function layerKeys(l){ if (l.tier === 2 && skipT()) return []; var ks = []; l.fields.forEach(function(f){ if (!f.k || f.skip) return; ks.push(f.k); }); return ks; }
+function layerCount(l){ var ks = layerKeys(l); return [ks.filter(has).length, ks.length]; }
+function tagHTML(t){ return t ? '<span class="tg ' + t + '">' + (t === E ? 'Evidenced' : 'Illustrative') + '</span>' : ''; }
+
+/* ================= nav ================= */
+var row = document.getElementById('steps');
+LAYERS.forEach(function(l, i){
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'step';
+  b.innerHTML = '<span class="n">' + (i + 1) + '</span>' + l.name;
+  b.style.setProperty('--zc', l.c); b.style.setProperty('--zx', l.x); if (l.on) b.style.setProperty('--zon', l.on);
+  b.addEventListener('click', function(){ go(i, true); }); row.appendChild(b); stepBtns[i] = b;
+});
+
+/* ================= fields ================= */
+function fieldHTML(f){
+  if (f.type === 'sub') return '<p class="sub wide">' + f.l + '</p>';
+  var id = 'f-' + f.k, hint = f.hint ? '<span class="hint" id="h-' + f.k + '">' + f.hint + '</span>' : '', desc = f.hint ? ' aria-describedby="h-' + f.k + '"' : '';
+  var lab = '<label for="' + id + '">' + f.l + tagHTML(f.tag) + '</label>';
+  if (f.type === 'text') return '<div class="field' + (f.wide ? ' wide' : '') + '">' + lab + hint + '<input type="text" id="' + id + '" data-k="' + f.k + '"' + desc + ' placeholder="' + esc(f.ph || '') + '" value="' + esc(V[f.k] || '') + '"></div>';
+  if (f.type === 'area') return '<div class="field wide">' + lab + hint + '<textarea id="' + id + '" data-k="' + f.k + '"' + desc + (f.tall ? ' class="tall"' : '') + ' placeholder="' + esc(f.ph || '') + '">' + esc(V[f.k] || '') + '</textarea></div>';
+  if (f.type === 'photo') return '<div class="field"><span class="flab">' + f.l + tagHTML(f.tag) + '</span><div class="photoctl"><div class="ph" id="ph-' + f.k + '">' + (IMG[f.k] ? '<img src="' + IMG[f.k].src + '" alt="Persona picture">' : AVATAR) + '</div>' +
+    '<div><button type="button" class="mini" id="pb-' + f.k + '">' + (IMG[f.k] ? 'Change Picture' : 'Add Picture') + '</button>' + (IMG[f.k] ? ' <button type="button" class="mini" id="pr-' + f.k + '">Remove</button>' : '') +
+    '<input type="file" id="pi-' + f.k + '" accept="image/*" hidden><span class="hint" style="margin-top:4px">Stays on your computer.</span></div></div></div>';
+  if (f.type === 'board') return '<div class="field wide"><span class="flab">Lifestyle board images</span><span class="hint">Use images that reflect their overall life story. Up to ' + MAXIMG + ' images.</span>' +
+    '<div class="uploader" id="drop-' + f.k + '">Drag images here, or <button type="button" class="btn" id="add-' + f.k + '" style="padding:4px 12px;margin:0 4px">Choose Images</button> Images stay on your computer and are never uploaded.' +
+    '<input type="file" id="in-' + f.k + '" accept="image/*" multiple hidden></div><div class="thumbs" id="th-' + f.k + '"></div></div>';
+  return '';
+}
+var AVATAR = '<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="#f2f5f9"/><circle cx="50" cy="40" r="17" fill="#a4a7af"/><path d="M16 96c4-22 18-33 34-33s30 11 34 33" fill="#a4a7af"/></svg>';
+
+function go(i, focus){
+  cur = i; var l = LAYERS[i], f = document.getElementById('form');
+  f.style.setProperty('--zc', l.c); f.style.setProperty('--zx', l.x); if (l.on) f.style.setProperty('--zon', l.on); else f.style.removeProperty('--zon');
+  var body = '';
+  if (l.tier === 2) body += '<label class="skip"><input type="checkbox" id="noT"' + (skipT() ? ' checked' : '') + '> I don\'t have evidence for a tertiary target yet</label>';
+  if (l.tier !== undefined) body += '<p class="legend">' + tagHTML(E) + ' Grounded in your profile\'s evidence &nbsp; ' + tagHTML(I) + ' Illustrative choices, consistent with the evidence but not new facts</p>';
+  body += '<div class="fgrid" id="fg"' + (l.tier === 2 && skipT() ? ' hidden' : '') + '>' + l.fields.map(fieldHTML).join('') + '</div>';
+  f.innerHTML = '<p class="stepof">Step ' + (i + 1) + ' of ' + N + '</p><p class="fq" tabindex="-1" id="fq">' + l.title + '</p><p class="fintro">' + l.intro + '</p>' + body +
+    '<div class="nav"><button type="button" class="btn" id="back"' + (i === 0 ? ' disabled' : '') + '>Back</button>' +
+    '<button type="button" class="btn next" id="fwd">' + (i === N - 1 ? 'Finish: Open full report' : 'Next') + '</button></div>';
+  f.querySelectorAll('input[type=text],textarea').forEach(function(el){ el.addEventListener('input', function(){ V[el.dataset.k] = el.value.trim(); render(); }); });
+  var nt = document.getElementById('noT');
+  if (nt) nt.addEventListener('change', function(){ V.noTertiary = nt.checked; document.getElementById('fg').hidden = nt.checked; render(); });
+  l.fields.forEach(function(fd){
+    if (fd.type === 'photo') bindPhoto(fd.k);
+    if (fd.type === 'board') bindBoard(fd.k);
+  });
+  document.getElementById('back').addEventListener('click', function(){ go(cur - 1, true); });
+  document.getElementById('fwd').addEventListener('click', function(){ if (cur < N - 1) go(cur + 1, true); else document.getElementById('pdf').click(); });
+  stepBtns.forEach(function(b, k){ b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); if (k === i) b.setAttribute('aria-current','step'); else b.removeAttribute('aria-current'); });
+  if (focus){ document.getElementById('fq').focus({preventScroll:true}); try { f.scrollIntoView({block:'nearest'}); } catch(e){} }
+  render();
+}
+
+/* ================= images ================= */
+function readImg(file, maxSide, square, cb){
+  var fr = new FileReader();
+  fr.onload = function(){ var img = new Image(); img.onload = function(){
+    var c = document.createElement('canvas'), g;
+    if (square){ var s = Math.min(img.width, img.height), o = Math.min(600, s); c.width = c.height = o; g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, o, o); g.drawImage(img, (img.width - s) / 2, (img.height - s) / 2, s, s, 0, 0, o, o); }
+    else { var k = Math.min(1, maxSide / Math.max(img.width, img.height)); c.width = Math.round(img.width * k); c.height = Math.round(img.height * k); g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height); }
+    cb({src:c.toDataURL('image/jpeg', 0.85), w:c.width, h:c.height});
+  }; img.onerror = function(){ cb(null); }; img.src = fr.result; };
+  fr.onerror = function(){ cb(null); }; fr.readAsDataURL(file);
+}
+function bindPhoto(k){
+  var inp = document.getElementById('pi-' + k);
+  document.getElementById('pb-' + k).addEventListener('click', function(){ inp.click(); });
+  var rm = document.getElementById('pr-' + k); if (rm) rm.addEventListener('click', function(){ delete IMG[k]; go(cur, false); flash('Picture removed.'); });
+  inp.addEventListener('change', function(e){ var f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
+    readImg(f, 600, true, function(im){ if (!im){ flash('That file could not be read as an image.'); return; } IMG[k] = im; go(cur, false); flash('Picture added. It stays on your computer and is never uploaded.'); }); });
+}
+function renderThumbs(k){
+  var th = document.getElementById('th-' + k); if (!th) return; th.innerHTML = '';
+  (IMG[k] || []).forEach(function(im, i){
+    var d = document.createElement('div'); d.className = 'board-editor';
+    d.innerHTML = '<img src="' + im.src + '" alt="Lifestyle board image ' + (i+1) + '"><button type="button" aria-label="Remove image ' + (i+1) + '">&times;</button>';
+    d.querySelector('button').addEventListener('click', function(){ IMG[k].splice(i, 1); renderThumbs(k); render(); });
+    var lab = document.createElement('label'); lab.htmlFor = 'desc-' + k + '-' + i; lab.textContent = 'Image ' + (i + 1) + ': description and relevance';
+    var ta = document.createElement('textarea'); ta.id = lab.htmlFor; ta.value = im.description || ''; ta.rows = 3;
+    ta.addEventListener('input', function(){ im.description = ta.value; d.querySelector('img').alt = im.description || 'Lifestyle image: description not added'; render(); });
+    d.querySelector('img').alt = im.description || 'Lifestyle image: description not added';
+    d.appendChild(lab); d.appendChild(ta);
+    th.appendChild(d);
+  });
+  var add = document.getElementById('add-' + k); if (add) add.disabled = (IMG[k] || []).length >= MAXIMG;
+}
+function bindBoard(k){
+  var inp = document.getElementById('in-' + k), drop = document.getElementById('drop-' + k);
+  function addFiles(list){
+    var files = [].slice.call(list || []).filter(function(f){ return /^image\//.test(f.type); });
+    IMG[k] = IMG[k] || []; var room = MAXIMG - IMG[k].length; if (!files.length) return;
+    if (room <= 0){ flash('This board already has ' + MAXIMG + ' images. Remove one to add another.'); return; }
+    var skipped = files.length - room; files = files.slice(0, room); var pending = files.length;
+    files.forEach(function(f){ readImg(f, 1400, false, function(im){ if (im) IMG[k].push(im); if (--pending === 0){ renderThumbs(k); render(); flash('Images added.' + (skipped > 0 ? ' The board holds up to ' + MAXIMG + ', so ' + skipped + ' left out.' : '')); } }); });
+  }
+  document.getElementById('add-' + k).addEventListener('click', function(){ inp.click(); });
+  inp.addEventListener('change', function(e){ addFiles(e.target.files); e.target.value = ''; });
+  drop.addEventListener('dragover', function(e){ e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', function(){ drop.classList.remove('over'); });
+  drop.addEventListener('drop', function(e){ e.preventDefault(); drop.classList.remove('over'); addFiles(e.dataTransfer.files); });
+  renderThumbs(k);
+}
+
+/* ================= preview ================= */
+var ROWS = [['geo','Geographic',E],['beh','Behavioral',E],['psy','Psychographics',E],['goals','Motivations and goals',I],['brand','Brand relationship',E]];
+function render(){
+  var n = val('name');
+  var sn = document.getElementById('sname'); sn.textContent = n || 'Your Brand'; sn.classList.toggle('empty', !n);
+  document.getElementById('sline').textContent = val('overview') ? trunc(val('overview'), 220) : 'Your primary, secondary, and tertiary target customer personas.';
+  var h = '';
+  TIERS.forEach(function(t, i){
+    var p = t.id + '_';
+    if (i === 2 && skipT()){ h += '<div class="pcard skipped" style="--c:' + t.c + ';--t:' + t.t + ';--x:' + t.x + '"><p class="tier">' + t.name + ' target</p><p class="zempty">No tertiary target yet. Include one only when there is evidence for it.</p></div>'; return; }
+    var line = [val(p + 'age') ? 'Age ' + val(p + 'age') : '', val(p + 'job'), val(p + 'geo') ? trunc(val(p + 'geo'), 40) : ''].filter(Boolean).join(' · ');
+    var rows = ROWS.map(function(r){ var v = val(p + r[0]); return v ? '<dt>' + r[1] + tagHTML(r[2]) + '</dt><dd>' + esc(trunc(v, 150)) + '</dd>' : ''; }).join('');
+    var bd = boards(t.id); var cols = bd.length === 4 ? 2 : Math.min(bd.length, 3);
+    var kw = val(p + 'life').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+    h += '<div class="pcard' + (LAYERS[cur].tier === i ? ' cur' : '') + '" style="--c:' + t.c + ';--t:' + t.t + ';--x:' + t.x + '">' +
+      '<p class="tier">' + t.name + ' target' + (val(p + 'group') ? ': <span>' + esc(trunc(val(p + 'group'), 70)) + '</span>' : '') + '</p>' +
+      '<div class="phead"><div class="ph">' + (IMG[p + 'photo'] ? '<img src="' + IMG[p + 'photo'].src + '" alt="' + esc(val(p + 'photoDesc') || 'Persona picture: description not added') + '">' : AVATAR) + '</div><div><p class="pname' + (val(p + 'name') ? '' : ' empty') + '">' + esc(val(p + 'name') || 'Persona name') + '</p><p class="pline">' + esc(line || 'Add details in the ' + t.name.toLowerCase() + ' step.') + '</p></div></div>' +
+      (rows ? '<dl>' + rows + '</dl>' : '') +
+      (kw.length ? '<ul class="kw">' + kw.map(function(k){ return '<li>' + esc(k) + '</li>'; }).join('') + '</ul>' : '') +
+      (bd.length ? '<div class="bgrid" style="--cols:' + cols + '">' + bd.map(function(im, j){ return '<img src="' + im.src + '" alt="' + esc(im.description || 'Lifestyle image: description not added') + '">'; }).join('') + '</div>' : '') +
+      '</div>';
+  });
+  document.getElementById('cards').innerHTML = h;
+  LAYERS.forEach(function(l, i){ var c = layerCount(l); stepBtns[i].classList.toggle('done', (c[1] > 0 && c[0] === c[1]) || (l.tier === 2 && skipT())); });
+  var done = 0, tot = 0; LAYERS.forEach(function(l){ var c = layerCount(l); done += c[0]; tot += c[1]; });
+  document.getElementById('bar').style.width = Math.round(100 * done / tot) + '%';
+  document.getElementById('ptext').textContent = done + ' of ' + tot + ' parts added';
+  window.artuPush();
+}
+
+function validateSaved(d){
+  if(!d || d.tool!=='persona-lifestyle-builder' || !d.values || typeof d.values!=='object' || Array.isArray(d.values)) throw new Error('Invalid saved values');
+  var values={},images={};Object.keys(d.values).forEach(function(k){if(typeof d.values[k]==='string' || typeof d.values[k]==='boolean') values[k]=d.values[k];});
+  function validImage(im){if(!im || typeof im.src!=='string' || !/^data:image\/(jpeg|png|webp);base64,[A-Za-z0-9+/=]+$/.test(im.src)) throw new Error('Invalid image');return {src:im.src,w:Number(im.w)||1,h:Number(im.h)||1,description:typeof im.description==='string'?im.description:''};}
+  TIERS.forEach(function(t){var p=t.id+'_',input=d.images||{};if(input[p+'photo']) images[p+'photo']=validImage(input[p+'photo']);if(input[p+'board']){if(!Array.isArray(input[p+'board']) || input[p+'board'].length>MAXIMG) throw new Error('Invalid board');images[p+'board']=input[p+'board'].map(validImage);}});
+  return {values:values,images:images};
+}
+/* ================= save / open / reset ================= */
+function fname(ext){ return (val('last') || 'Lastname').replace(/[^a-z0-9]+/gi, '') + '_Module6_PersonasLifestyle.' + ext; }
+function download(blob, name){ var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500); }
+document.getElementById('save').addEventListener('click', function(){
+  var nm = ((val('last') || 'my') + '-personas').replace(/[^a-z0-9-]+/gi, '-').toLowerCase();
+  download(new Blob([JSON.stringify({tool:'persona-lifestyle-builder', v:1, values:V, images:IMG})], {type:'application/json'}), nm + '.json');
+  flash('Saved. Next time, select Open Saved File and choose this file to pick up where you left off.');
+});
+document.getElementById('openbtn').addEventListener('click', function(){ document.getElementById('openin').click(); });
+document.getElementById('openin').addEventListener('change', function(e){
+  var f = e.target.files && e.target.files[0]; e.target.value = ''; if (!f) return;
+  var fr = new FileReader();
+  fr.onload = function(){ try { var d = JSON.parse(fr.result); if (d.tool !== 'persona-lifestyle-builder') throw 0; var clean = validateSaved(d); V = clean.values; IMG = clean.images; go(0, false); flash('Your saved work is open.'); }
+    catch(err){ flash('That file is not a saved file from this builder. Choose the .json file you saved here.'); } };
+  fr.readAsText(f);
+});
+var resetArmed = null;
+document.getElementById('reset').addEventListener('click', function(){
+  var b = this;
+  if (!resetArmed){ b.textContent = 'Select again to clear everything'; b.classList.add('warn'); resetArmed = setTimeout(function(){ b.textContent = 'Start over'; b.classList.remove('warn'); resetArmed = null; }, 5000); return; }
+  clearTimeout(resetArmed); resetArmed = null; b.textContent = 'Start over'; b.classList.remove('warn');
+  V = {}; IMG = {}; go(0, false); flash('Cleared. You are starting fresh.');
+});
+
+
+/* Complete report: preserve Unicode, full field values, and image descriptions. */
+function reportHtml(){
+  var body = '<h1>' + esc(val('name') || 'Target customer personas') + '</h1>';
+  if(V.demo) body += '<p class="notice">Fictional portfolio example. All people, findings, and research notes are invented for demonstration; they are not market research.</p>';
+  body += '<p>Evidence labels identify expected support, not independent verification.</p><h2>Overview</h2><p>' + esc(val('overview') || 'Not added yet') + '</p>';
+  TIERS.forEach(function(t, i){
+    if(i === 2 && skipT()){ body += '<h2>Tertiary target</h2><p>No tertiary target yet; further evidence is needed.</p>'; return; }
+    var p=t.id+'_'; body += '<section><h2>' + t.name + ' target</h2>';
+    pfields(p).forEach(function(f){
+      if(!f.k) return;
+      if(f.type === 'photo'){
+        var im=IMG[f.k]; if(im) body += '<figure><img class="portrait" src="'+esc(im.src)+'" alt="'+esc(val(p+'photoDesc') || 'Persona picture: description not added')+'"></figure>';
+      } else if(f.type === 'board'){
+        body += '<h3>Lifestyle board</h3>';
+        (IMG[f.k] || []).forEach(function(im,j){body += '<figure><img src="'+esc(im.src)+'" alt="'+esc(im.description || 'Lifestyle image: description not added')+'"><figcaption>Image '+(j+1)+': '+esc(im.description || 'Description not added')+'</figcaption></figure>';});
+      } else {
+        body += '<h3>'+esc(f.l)+(f.tag ? ' <small>('+(f.tag===E?'Evidence-based field':'Illustrative')+')</small>' : '')+'</h3><p>'+esc(val(f.k) || 'Not added yet')+'</p>';
+      }
+    }); body += '</section>';
+  });
+  return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>'+esc(val('name') || 'Persona report')+'</title><style>body{font:17px/1.55 Arial,sans-serif;color:#26333b;max-width:850px;margin:32px auto;padding:0 24px}h1,h2,h3{line-height:1.25;overflow-wrap:anywhere}h2{border-top:4px solid #1580a5;padding-top:14px;margin-top:32px}h3{font-size:1rem;margin-bottom:4px;break-after:avoid}p{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:0}small{font-weight:normal}figure{margin:20px 0;break-inside:avoid}img{display:block;max-width:100%;max-height:430px;object-fit:contain}.portrait{max-height:170px}figcaption{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.9rem}.notice{background:#fff3d9;padding:12px}button{padding:10px 16px;font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #1580a5}@media print{@page{margin:18mm}body{max-width:none;margin:0;padding:0;font-size:11pt}.print-tools{display:none}h2{break-after:avoid}img{max-height:150mm}}</style></head><body><div class="print-tools"><button type="button" onclick="window.print()">Print / Save as PDF</button><p>Choose Save as PDF in your print dialog. Your complete responses are included below. Keep the HTML report for a readable text alternative.</p></div>'+body+'</body></html>';
+}
+document.getElementById('pdf').addEventListener('click',function(){
+  var w=window.open('','_blank');
+  if(!w){flash('Your browser blocked the report window. Allow pop-ups for this page or use Download HTML report.');return;}
+  w.opener=null; w.document.open(); w.document.write(reportHtml()); w.document.close();
+  flash('The full report opened in a new tab. Select Print / Save as PDF there.');
+});
+document.getElementById('htmlExport').addEventListener('click',function(){download(new Blob([reportHtml()],{type:'text/html;charset=utf-8'}),'persona-report.html');flash('Complete HTML report downloaded.');});
+function demoBoard(label,color,description){
+  var c=document.createElement('canvas');c.width=800;c.height=500;var g=c.getContext('2d');g.fillStyle=color;g.fillRect(0,0,800,500);g.fillStyle='#fff';g.font='bold 36px Arial';g.fillText(label,40,100);g.font='24px Arial';g.fillText('Illustrative lifestyle cue',40,155);g.lineWidth=8;g.strokeStyle='#fff';g.strokeRect(40,215,200,190);g.beginPath();g.arc(440,310,90,0,Math.PI*2);g.stroke();
+  return {src:c.toDataURL('image/jpeg',.85),w:800,h:500,description:description};
+}
+document.getElementById('example').addEventListener('click',function(){
+  if((Object.keys(V).length || Object.keys(IMG).length) && !window.confirm('Replace the current entries with the fictional example? Save Progress first if you want to keep them.')) return;
+  V={demo:true,name:'Northline — fictional portfolio example',overview:'A fictional clothing concept for people moving between work, transit, and time outdoors. Primary customers commute frequently; secondary customers need adaptable clothing for occasional trips. All research below is invented for practice.',noTertiary:true}; IMG={};
+  var samples=[{group:'Frequent city commuters',name:'Maya',age:'30–39',job:'Project coordinator',income:'$65,000–$85,000',edu:'College graduate; shares a home with a partner',geo:'Lives in a city neighborhood and commutes by train and walking',beh:'Compares care instructions and construction before buying. Replaces worn essentials rather than buying every season.',psy:'Values comfort, repairability, and a small wardrobe that works across settings.',goals:'Arrive at work comfortable without carrying several bulky layers.',brand:'Compares outdoor and everyday apparel retailers; reads product-care guides.',why:'In the fictional interview set, frequent commuters describe the same daily layering problem and a recurring need.',life:'Transit, walking, compact wardrobe',sources:'Fictional practice notes: six invented commuter interviews describe temperature changes and limited bag space. This is an example of recording evidence, not a real study.'},{group:'Occasional weekend travelers',name:'Alex',age:'40–49',job:'School administrator',income:'$75,000–$95,000',edu:'Graduate degree; household with one teenager',geo:'Lives in a suburb and travels into the city on weekends',beh:'Plans purchases before trips and reads reviews for versatility.',psy:'Values reliable, easy-care pieces and fewer items to pack.',goals:'Pack one small bag for a weekend with changing weather.',brand:'Compares travel apparel and general clothing stores; reads packing checklists.',why:'The fictional research suggests a related need, but less frequent purchasing occasions than the primary group.',life:'Weekend trips, light packing, flexible layers',sources:'Fictional practice notes: three invented traveler interviews identify packing constraints. Purchase frequency remains uncertain and needs further research.'}];
+  samples.forEach(function(sample,i){var p='p'+i+'_';Object.keys(sample).forEach(function(k){V[p+k]=sample[k];});IMG[p+'board']=[demoBoard(i===0?'Daily commute':'Weekend travel',i===0?'#236477':'#74507b',i===0?'An original abstract cue card for transit and compact everyday clothing; it illustrates the persona’s routine, not research evidence.':'An original abstract cue card for weekend travel and light packing; it illustrates the persona’s routine, not research evidence.')];});
+  go(0,true);flash('Fictional example loaded. Names, findings, and research notes are invented. Use Start over to begin a blank report.');
+});
+go(0,false);
+</script>
+</body>
+</html>
